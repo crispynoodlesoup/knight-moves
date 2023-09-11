@@ -59,26 +59,25 @@ function knightMoves(start, target) {
 
   let queue = []; 
   let root = new Square(target);
-  let tmpSquare = root;
+  let currentSquare = root;
   let match;
 
-  while(tmpSquare) {
-    tmpSquare.generateChildren();
-    match = tmpSquare.search(start);
+  while(currentSquare) {
+    currentSquare.generateChildren();
+    match = currentSquare.search(start);
     if(match) break;
     
-    tmpSquare.children.forEach((child) => queue.push(child));
-    tmpSquare = queue.shift();
+    currentSquare.children.forEach((child) => queue.push(child));
+    currentSquare = queue.shift();
   }
   
   if(match) {
     resultString += "\nFound a route! use the moves:"
-    tmpSquare = match;
-    while(tmpSquare) {
-      resultString += `\n${tmpSquare.coords}`;
-      tmpSquare = tmpSquare.parent;
+    currentSquare = match;
+    while(currentSquare) {
+      resultString += `\n${currentSquare.coords}`;
+      currentSquare = currentSquare.parent;
     }
-  
   } else {
     resultString += "\nWe couldn't find a route..."
   }
